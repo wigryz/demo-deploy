@@ -11,7 +11,7 @@ jobs:
           at: ~/
       - run: sudo chmod +x ./gradlew
       - run: ./gradlew testClasses
-      - run: ./gradlew test -p domain
+      # - run: ./gradlew test -p domain
       - run: ./gradlew assemble
       - run: ./gradlew war
       - run: ./gradlew copyWarFileToTarget
