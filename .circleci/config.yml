@@ -25,3 +25,46 @@ jobs:
       PARAMETERS_PROFILE:
         type: string
         default: env
+  send_war:
+    working_directory: ~/target
+    machine:
+      image: ubuntu-2004:202111-01
+    steps:
+      - attach_workspace:
+          at: ~/
+      - add_ssh_keys:
+          fingerprints:
+            - "17:67:f3:e2:86:22:07:9e:8c:bf:16:26:2b:ef:a9:b2"
+      - run:
+          name: Sending files to s3 bucket
+          command: scp $BUILD_APP_NAME.war << parameters.SSH_USER >>@<< parameters.SSH_HOST >>:apps/gopos-backend/versions/current/ROOT.war
+    parameters:
+      SSH_USER:
+        type: string
+        default: gosuite
+      SSH_HOST:
+        type: string
+        default: demo2.gopos.pl
+
+workflows:
+  version: 2
+
+  #demo2
+  build-demo-deploy:
+    jobs:
+      - build-gradle:
+          filters:
+            branches:
+              only:
+                - master
+
+      - send_war:
+          name: demo-deploy-send-war
+          requires:
+            - build-gradle
+          filters:
+            branches:
+              only:
+                - master
+          SSH_HOST: demo2.gopos.pl
+          SSH_USER: gosuite
