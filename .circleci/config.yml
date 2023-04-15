@@ -1,6 +1,4 @@
 version: 2.1
-orbs:
-  aws-s3: circleci/aws-s3@3.1.1
 jobs:
   build-gradle:
     working_directory: ~/appdevtest
@@ -8,34 +6,37 @@ jobs:
       - image: cimg/openjdk:16.0.2
     steps:
       - checkout:
-          path: ~/appdevtest
-      - attach_workspace:
-          at: ~/
+          path: .
       - run: sudo chmod +x ./gradlew
-#      - run: ./gradlew testClasses
-      # - run: ./gradlew test -p domain
       - run: ./gradlew assemble
       - run: ./gradlew war
       - run: ./gradlew copyWarFileToTarget
       - store_artifacts:
           path: target
       - persist_to_workspace:
-          root: ~/appdevtest
+          root: .
           paths:
-            - target
+            - .
+    parameters:
+      PARAMETERS_PROFILE:
+        type: string
+        default: env
+  deploy:
+    machine:
+      image: ubuntu-2004:202010-01
+    steps:
+      - attach_workspace:
+          at: .
+      - checkout
       - run: sudo chmod +x ./make_deploy.sh
       - run: ./make_deploy.sh
       - run:
           name: Installing AWS CLI
           command: |
-            sudo apt-get update
-            sudo apt install python3-pip
-            sudo pip3 install awsebcli --upgrade
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
       - run: aws s3 copy ./demo-deploy-zip s3://demo-deploy-wigryz
-    parameters:
-      PARAMETERS_PROFILE:
-        type: string
-        default: env
     environment:
       AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
       AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
@@ -47,6 +48,11 @@ workflows:
   build-demo-deploy:
     jobs:
       - build-gradle:
+          filters:
+            branches:
+              only:
+                - master
+      - deploy:
           filters:
             branches:
               only:
