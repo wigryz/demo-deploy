@@ -34,12 +34,10 @@ jobs:
           path: ~/appdevtest
       - attach_workspace:
           at: ~/
-      - zip_deploy_package:
       - run: ./make_deploy
       - aws-s3/copy:
           arguments: '--dryrun'
-          from: demo-deploy.zip
-          install-aws-cli: false
+          from: ~/appdevtest/demo-deploy.zip
           to: s3://demo-deploy-wigryz
 
 workflows:
