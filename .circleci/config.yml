@@ -32,6 +32,13 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
+      - zip_deploy_package:
+      - run: zip
+      - aws-s3/copy:
+          arguments: '--dryrun'
+          from:
+          install-aws-cli: false
+          to: s3://my-s3-bucket-name
 
 workflows:
   version: 2
