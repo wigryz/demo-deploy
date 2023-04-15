@@ -30,15 +30,17 @@ jobs:
     machine:
       image: ubuntu-2004:202111-01
     steps:
+      - checkout:
+          path: ~/appdevtest
       - attach_workspace:
           at: ~/
       - zip_deploy_package:
-      - run: zip
+      - run: ./make_deploy
       - aws-s3/copy:
           arguments: '--dryrun'
-          from:
+          from: demo-deploy.zip
           install-aws-cli: false
-          to: s3://my-s3-bucket-name
+          to: s3://demo-deploy-wigryz
 
 workflows:
   version: 2
