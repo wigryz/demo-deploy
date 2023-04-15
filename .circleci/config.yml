@@ -23,24 +23,16 @@ jobs:
           root: ~/appdevtest
           paths:
             - target
-    parameters:
-      PARAMETERS_PROFILE:
-        type: string
-        default: env
-  send_war:
-    working_directory: ~/appdevtest
-    machine:
-      image: ubuntu-2004:202111-01
-    steps:
-      - attach_workspace:
-          at: ~/
-      - run: ls
-      - run: ls ~/appdevtest/
-      - run: ~/appdevtest/make_deploy.sh
+      - run: sudo chmod +x ./make_deploy.sh
+      - run: ./make_deploy.sh
       - aws-s3/copy:
           arguments: '--dryrun'
           from: ~/appdevtest/demo-deploy.zip
           to: s3://demo-deploy-wigryz
+    parameters:
+      PARAMETERS_PROFILE:
+        type: string
+        default: env
 
 workflows:
   version: 2
@@ -49,15 +41,6 @@ workflows:
   build-demo-deploy:
     jobs:
       - build-gradle:
-          filters:
-            branches:
-              only:
-                - master
-
-      - send_war:
-          name: demo-deploy-send-war
-          requires:
-            - build-gradle
           filters:
             branches:
               only:
