@@ -12,9 +12,9 @@ jobs:
       - attach_workspace:
           at: ~/
       - run: sudo chmod +x ./gradlew
-      - run: ./gradlew testClasses
+#      - run: ./gradlew testClasses
       # - run: ./gradlew test -p domain
-      - run: ./gradlew assemble
+#      - run: ./gradlew assemble
       - run: ./gradlew war
       - run: ./gradlew copyWarFileToTarget
       - store_artifacts:
@@ -32,7 +32,7 @@ jobs:
     machine:
       image: ubuntu-2004:202111-01
     steps:
-      - run: ~/appdevtest/make_deploy
+      - run: ~/appdevtest/make_deploy.sh
       - aws-s3/copy:
           arguments: '--dryrun'
           from: ~/appdevtest/demo-deploy.zip
