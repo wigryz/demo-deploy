@@ -53,8 +53,8 @@ workflows:
               only:
                 - master
       - deploy:
+          requires: build-gradle
           filters:
             branches:
               only:
                 - master
-          requires: build-gradle
