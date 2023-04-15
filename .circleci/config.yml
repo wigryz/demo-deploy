@@ -27,7 +27,6 @@ jobs:
       - run: ./make_deploy.sh
       - aws-s3/copy:
           arguments: '--dryrun'
-          aws-region: eu-central-1
           from: ~/appdevtest/demo-deploy.zip
           to: s3://demo-deploy-wigryz
     parameters:
