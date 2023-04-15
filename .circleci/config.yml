@@ -1,7 +1,7 @@
 version: 2.1
 jobs:
   build-gradle:
-    working_directory: .
+    working_directory: ~/app
     docker:
       - image: cimg/openjdk:16.0.2
     steps:
@@ -24,6 +24,7 @@ jobs:
   deploy:
     machine:
       image: ubuntu-2004:202010-01
+    working_directory: ~/app
     steps:
       - attach_workspace:
           at: .
