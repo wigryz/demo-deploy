@@ -32,11 +32,7 @@ jobs:
     machine:
       image: ubuntu-2004:202111-01
     steps:
-      - checkout:
-          path: ~/appdevtest
-      - attach_workspace:
-          at: ~/
-      - run: ./make_deploy
+      - run: ~/appdevtest/make_deploy
       - aws-s3/copy:
           arguments: '--dryrun'
           from: ~/appdevtest/demo-deploy.zip
