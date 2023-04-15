@@ -28,6 +28,7 @@ jobs:
         type: string
         default: env
   send_war:
+    working_directory: ~/appdevtest
     machine:
       image: ubuntu-2004:202111-01
     steps:
