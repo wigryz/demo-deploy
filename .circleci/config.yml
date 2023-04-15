@@ -1,7 +1,7 @@
 version: 2.1
 jobs:
   build-gradle:
-    working_directory: ~/appdevtest
+    working_directory: .
     docker:
       - image: cimg/openjdk:16.0.2
     steps:
@@ -44,7 +44,6 @@ jobs:
 workflows:
   version: 2
 
-  #demo2
   build-demo-deploy:
     jobs:
       - build-gradle:
