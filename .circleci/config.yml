@@ -26,7 +26,6 @@ jobs:
       - run: sudo chmod +x ./make_deploy.sh
       - run: ./make_deploy.sh
       - aws-s3/copy:
-          arguments: '--dryrun'
           from: ~/appdevtest/demo-deploy.zip
           to: s3://demo-deploy-wigryz
     parameters:
