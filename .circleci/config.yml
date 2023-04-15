@@ -22,9 +22,9 @@ jobs:
         type: string
         default: env
   deploy:
+    working_directory: ~/app
     machine:
       image: ubuntu-2004:202010-01
-    working_directory: ~/app
     steps:
       - attach_workspace:
           at: .
