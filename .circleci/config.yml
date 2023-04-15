@@ -29,13 +29,13 @@ jobs:
           arguments: '--dryrun'
           from: ~/appdevtest/demo-deploy.zip
           to: s3://demo-deploy-wigryz
-          environment:
-            AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-            AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
     parameters:
       PARAMETERS_PROFILE:
         type: string
         default: env
+    environment:
+      AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
 
 workflows:
   version: 2
