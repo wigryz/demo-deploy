@@ -39,7 +39,7 @@ jobs:
             sudo ./aws/install --update
       - run: ls -a
       - run: ls -a ~/
-      - run: aws s3 cp demo-deploy-zip s3://demo-deploy-wigryz
+      - run: aws s3 cp ~/app/demo-deploy-zip s3://demo-deploy-wigryz
     environment:
       AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
       AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
