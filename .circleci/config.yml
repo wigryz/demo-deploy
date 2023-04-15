@@ -25,11 +25,13 @@ jobs:
             - target
       - run: sudo chmod +x ./make_deploy.sh
       - run: ./make_deploy.sh
-      - run: echo $AWS_SECRET_ACCESS_KEY
-      - run: echo $AWS_ACCESS_KEY_ID
-      - aws-s3/copy:
-          from: ~/appdevtest/demo-deploy.zip
-          to: s3://demo-deploy-wigryz
+      - run:
+          name: Installing AWS CLI
+          command: |
+            sudo apt-get update
+            sudo apt install python3-pip
+            sudo pip3 install awsebcli --upgrade
+      - run: aws s3 copy ./demo-deploy-zip s3://demo-deploy-wigryz
     parameters:
       PARAMETERS_PROFILE:
         type: string
