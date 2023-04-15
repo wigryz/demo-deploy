@@ -28,10 +28,11 @@ jobs:
         type: string
         default: env
   send_war:
-    working_directory: ~/target
     machine:
       image: ubuntu-2004:202111-01
     steps:
+      - attach_workspace:
+          at: ~/
       - run: ls
       - run: ls ~/appdevtest/
       - run: ~/appdevtest/make_deploy.sh
