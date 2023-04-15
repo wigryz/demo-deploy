@@ -32,6 +32,8 @@ jobs:
     machine:
       image: ubuntu-2004:202111-01
     steps:
+      - run: ls
+      - run: ls ~/appdevtest/
       - run: ~/appdevtest/make_deploy.sh
       - aws-s3/copy:
           arguments: '--dryrun'
