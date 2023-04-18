@@ -30,6 +30,7 @@ jobs:
           at: .
       - checkout
       - run: sudo chmod +x ./make_deploy.sh
+        # .env
       - run: ./make_deploy.sh
       - run:
           name: Installing AWS CLI
