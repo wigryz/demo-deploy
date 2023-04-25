@@ -67,3 +67,10 @@ workflows:
             branches:
               only:
                 - master
+      - aws-code-deploy/deploy:
+          requires:
+            - deploy
+          filters:
+            branches:
+              only:
+                - master
