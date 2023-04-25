@@ -63,6 +63,7 @@ workflows:
       - aws-code-deploy/deploy:
             requires:
               - deploy
+            region: eu-central-1
             application-name: DemoDeploy
             auth:
               - aws-cli/setup
