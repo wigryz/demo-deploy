@@ -1,4 +1,6 @@
 version: 2.1
+orbs:
+  aws-code-deploy: circleci/aws-code-deploy@3.0.0
 jobs:
   build-gradle:
     working_directory: ~/app
@@ -39,6 +41,14 @@ jobs:
       - run: aws s3 cp s3://demo-deploy-wigryz/env CodeDeploy/.env
       - run: ./make_deploy.sh
       - run: aws s3 cp demo-deploy.zip s3://demo-deploy-wigryz
+      - aws-code-deploy/deploy:
+          application-name: DemoDeploy
+          auth:
+            - aws-cli/setup
+          bundle-bucket: s3://demo-deploy-wigryz
+          bundle-key: demo-deploy.zip
+          deployment-group: DemoDeployGroup
+          service-role-arn: arn:aws:iam::127659490406:role/DemoDeployServiceRole
 
 workflows:
   version: 2
