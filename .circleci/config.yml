@@ -39,7 +39,7 @@ jobs:
       - run: aws s3 cp s3://demo-deploy-wigryz/env CodeDeploy/.env
       - run: ./make_deploy.sh
       - run: aws s3 cp demo-deploy.zip s3://demo-deploy-wigryz
-      - run: aws deploy create-deployment --application-name DemoDeploy --s3-location bucket=demo-deploy-wigryz,key=demo-deploy.zip,bundleType=zip --deployment-group-name DemeDeployGroup --description from-cli
+      - run: aws deploy create-deployment --application-name DemoDeploy --s3-location bucket=demo-deploy-wigryz,key=demo-deploy.zip,bundleType=zip --deployment-group-name DemeDeployGroup --description from-circle-ci
 workflows:
   version: 2
 
