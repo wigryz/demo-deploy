@@ -14,7 +14,7 @@ import java.util.Optional;
 @RequestMapping()
 public class HelloController {
 
-    @Value("SOME_ENV_VARIABLE")
+    @Value("${SOME_ENV_VARIABLE}")
     private String envVariable;
 
     @GetMapping(value = "hello")
