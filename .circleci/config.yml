@@ -30,14 +30,14 @@ jobs:
           at: .
       - checkout
       - run: sudo chmod +x ./make_deploy.sh
-        # .env
-      - run: ./make_deploy.sh
       - run:
           name: Installing AWS CLI
           command: |
             curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
             unzip awscliv2.zip
             sudo ./aws/install --update
+      - run: aws s3 cp s3://demo-deploy-wigryz/env CodeDeploy/.env
+      - run: ./make_deploy.sh
       - run: aws s3 cp demo-deploy.zip s3://demo-deploy-wigryz
 
 workflows:
