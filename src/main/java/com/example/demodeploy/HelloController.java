@@ -26,8 +26,14 @@ public class HelloController {
         return "LH: A: " + lhAddress + " H: " + lhHost + " ___ LB: A: " + lbAddress + " H: " + lbHost + ".";
     }
 
-    @GetMapping(value = "test")
+    @GetMapping(value = "ajax/test")
     public String test() {
         return "test1";
+    }
+
+
+    @GetMapping(value = "ajax/xd")
+    public String xd() {
+        return "ajax/xd adfasdf";
     }
 }
